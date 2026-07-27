@@ -1,54 +1,75 @@
 # Flutter Claw
 
-Production-ready Flutter AI agent app template with Hermes Agent, Composio (1000+ apps), and graph loop architecture. MIT-licensed.
+**Open-source Flutter AI agent framework.** Give any Flutter app a brain — tool calling, memory, and multi-modal reasoning in one import.
 
-## What is Flutter Claw?
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg)](https://flutter.dev)
 
-Flutter Claw is a complete Flutter application that puts a full AI agent system in your pocket. Built on [Hermes Agent](https://hermes-agent.nousresearch.com) and [Composio](https://composio.dev) for 1000+ app integrations.
+## Why Flutter Claw?
 
-## Features
+Building an AI agent app in Flutter used to mean weeks of boilerplate. Flutter Claw turns it into a single import.
 
-- **Hermes Agent Integration** - Full skill system, graph loops, 24/7 daemon
-- **Composio Integration** - 1000+ app connections (Gmail, LinkedIn, Slack, Notion, GitHub, etc.)
-- **Graph Loop Architecture** - DISCOVER -> STRATEGIZE -> EXECUTE -> MEASURE -> OPTIMIZE autonomous loops
-- **Subagent Delegation** - Parallel task execution via Hermes delegation
-- **Obsidian Memory Graph** - Persistent knowledge graph for agent memory
-- **Telegram Gateway** - Remote control and monitoring via Telegram
+```dart
+import 'package:flutter_claw/flutter_claw.dart';
 
-## Quick Start
-
-### Prerequisites
-- Flutter 3.x / Dart 3.x
-- Python 3.11+
-- Composio account (free tier works)
-
-### Setup
-
-1. Clone this repo
-2. Install dependencies
-3. Configure Composio
-4. Run the app
-
-See docs/SETUP.md for full instructions.
-
-## Architecture
-
+final agent = ClawAgent(
+  system: "You are a helpful assistant with access to the user's apps.",
+  tools: [
+    CameraTool(),         // native camera + vision
+    CalendarTool(),       // read/write device calendar
+    ComposioBridge(),     // 1000+ apps via Composio
+    MemoryTool(),         // persistent conversation memory
+  ],
+);
 ```
-Flutter App (UI/UX)
-    |
-    |  stdio MCP bridge
-    |
-Hermes Agent (Python backend)
-    |
-    |  Composio CLI
-    |
-1000+ Apps (Gmail, LinkedIn, GitHub, etc.)
+
+That's it. You get:
+- Tool calling — same architecture as Claude Code / Hermes Agent
+- Memory — conversation history + user context, persistent across sessions
+- Multi-modal — camera, mic, on-device vision, voice
+- 1000+ apps — bridge to Composio for Gmail, Slack, Notion, Stripe, etc.
+- Mobile-first — built for Flutter, not retrofitted
+
+## Quickstart
+
+```bash
+flutter pub add flutter_claw
 ```
+
+```dart
+import 'package:flutter_claw/flutter_claw.dart';
+import 'package:flutter_claw/composio.dart';
+
+void main() async {
+  await Composio.init(apiKey: 'YOUR_COMPOSIO_KEY');
+
+  final agent = ClawAgent(
+    tools: [CameraTool(), CalendarTool(), ComposioBridge()],
+  );
+
+  final response = await agent.run("What's on my calendar today?");
+  print(response.text);
+}
+```
+
+## Built On
+
+- **Hermes Agent** — graph-loop orchestration, subagent delegation
+- **Composio** — 1000+ app integrations with one tool call
+- **Open source** — MIT licensed. Use it in your app today.
+
+## Roadmap
+
+- v0.1 — Core agent + tool calling (this release)
+- v0.2 — Memory graph + persistent context
+- v0.3 — Voice-first loop (STT -> agent -> TTS)
+- v0.4 — Graph loop orchestration
+- v1.0 — Full Hermes Agent parity + Flutter-native UI
+
+## Built By
+
+**danlab.dev** — AI glasses + agent stack. We are building the future of human-first computing.
 
 ## License
 
-MIT - see LICENSE
-
-## Built by
-
-[DanLab](https://danlab.dev) - AI agents that run your business while you sleep.
+MIT © danlab.dev
