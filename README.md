@@ -2,6 +2,8 @@
 
 **Open-source Flutter AI agent framework.** Give any Flutter app a brain — tool calling, memory, and multi-modal reasoning in one import.
 
+![Flutter Claw Demo](docs/demo.png)
+
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg)](https://flutter.dev)
 
